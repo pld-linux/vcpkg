@@ -23,6 +23,7 @@ MacOS.
 %setup -q
 
 %build
+CXX="%{__cxx}" \
 sh -x ./bootstrap-vcpkg.sh -useSystemBinaries
 
 %if %{with tests}
