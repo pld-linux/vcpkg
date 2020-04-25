@@ -15,9 +15,20 @@ BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		vcpkgrootdir	%{_datadir}/%{name}
+
 %description
 Vcpkg helps you manage C and C++ libraries on Windows, Linux and
 MacOS.
+
+%package root
+Summary:	ports, scripts and triplets
+Group:		Development/Tools
+BuildArch:	noarch
+
+%description root
+This package contains vcpkg-root:
+- ports, scripts and triplets
 
 %prep
 %setup -q
@@ -32,10 +43,10 @@ sh -x ./bootstrap-vcpkg.sh -useSystemBinaries
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libexecdir}/%{name}}
-install -p vcpkg $RPM_BUILD_ROOT%{_libexecdir}/%{name}
-cp -a ports scripts triplets .vcpkg-root $RPM_BUILD_ROOT%{_libexecdir}/%{name}
-ln -s --relative %{_libexecdir}/%{name}/%{name} $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{vcpkgrootdir}}
+install -p vcpkg $RPM_BUILD_ROOT%{_bindir}
+cp -a ports scripts triplets .vcpkg-root $RPM_BUILD_ROOT%{vcpkgrootdir}
+ln -s --relative $RPM_BUILD_ROOT%{_bindir}/%{name} $RPM_BUILD_ROOT%{vcpkgrootdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -45,9 +56,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.md CHANGELOG.md LICENSE.txt
 %doc %lang(zh_CN) README_zh_CN.md
 %attr(755,root,root) %{_bindir}/vcpkg
-%dir %{_libexecdir}/%{name}
-%attr(755,root,root) %{_libexecdir}/%{name}/vcpkg
-%{_libexecdir}/%{name}/.vcpkg-root
-%{_libexecdir}/%{name}/ports
-%{_libexecdir}/%{name}/scripts
-%{_libexecdir}/%{name}/triplets
+
+%files root
+%defattr(644,root,root,755)
+%dir %{vcpkgrootdir}
+%{vcpkgrootdir}/.vcpkg-root
+%{vcpkgrootdir}/ports
+%{vcpkgrootdir}/scripts
+%{vcpkgrootdir}/triplets
+%{vcpkgrootdir}/vcpkg
