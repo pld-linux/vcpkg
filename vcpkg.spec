@@ -5,7 +5,7 @@
 Summary:	C++ Library Manager for Windows, Linux, and MacOS
 Name:		vcpkg
 Version:	2020.04
-Release:	1.2
+Release:	2
 License:	MIT
 Group:		Development/Tools
 Source0:	https://github.com/microsoft/vcpkg/archive/%{version}/%{name}-%{version}.tar.gz
