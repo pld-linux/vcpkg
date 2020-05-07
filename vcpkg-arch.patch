@@ -1,0 +1,19 @@
+--- vcpkg-2020.04/toolsrc/src/vcpkg/base/system.cpp.orig	2020-04-21 01:39:46.000000000 +0200
++++ vcpkg-2020.04/toolsrc/src/vcpkg/base/system.cpp	2020-05-07 08:49:19.462202639 +0200
+@@ -45,7 +45,7 @@
+ #else // ^^^ defined(_WIN32) / !defined(_WIN32) vvv
+ #if defined(__x86_64__) || defined(_M_X64)
+         return CPUArchitecture::X64;
+-#elif defined(__x86__) || defined(_M_X86)
++#elif defined(__x86__) || defined(__i386__) || defined(_M_X86)
+         return CPUArchitecture::X86;
+ #elif defined(__arm__) || defined(_M_ARM)
+         return CPUArchitecture::ARM;
+--- vcpkg-2020.04/triplets/community/x86-linux.cmake.orig	1970-01-01 01:00:00.000000000 +0100
++++ vcpkg-2020.04/triplets/community/x86-linux.cmake	2020-05-07 10:35:29.321027487 +0200
+@@ -0,0 +1,5 @@
++set(VCPKG_TARGET_ARCHITECTURE x86)
++set(VCPKG_CRT_LINKAGE dynamic)
++set(VCPKG_LIBRARY_LINKAGE static)
++
++set(VCPKG_CMAKE_SYSTEM_NAME Linux)
