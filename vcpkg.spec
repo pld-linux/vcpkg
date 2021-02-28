@@ -34,9 +34,7 @@ i MacOS.
 Summary:	Ports, scripts and triplets for vcpkg
 Summary(pl.UTF-8):	Porty, skrypty i trójki dla vcpkg
 Group:		Development/Tools
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description root
 This package contains vcpkg-root:
